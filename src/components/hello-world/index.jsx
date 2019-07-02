@@ -1,13 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import style from './hello-world.css';
+import React, { PureComponent } from 'react';
 
-const HelloWorld = ({ title }) => (
-  <div className={style['hello-world']}>{title}</div>
-);
+class MyInterviewWidget extends PureComponent {
+  componentWillMount() {
+    const script = document.createElement('script');
+    script.src = 'https://embed.myinterview.com/widget/2.23.0/widget.js';
+    document.body.appendChild(script);
+    script.onload = () => {
+      // eslint-disable-next-line
+      myInterviewWidget({
+        container: '#mycustom-container', // querySelector to the element that will contain the widget
+        config: {
+          apiKey: 'TCeni10RVWO0jEJHN3uF',
+        },
+      });
+    };
+  }
 
-HelloWorld.propTypes = {
-  title: PropTypes.string,
-};
+  render() {
+    return (
+      <form>
+        <div id="mycustom-container" />
+      </form>
+    );
+  }
+}
 
-export default HelloWorld;
+export default MyInterviewWidget;
